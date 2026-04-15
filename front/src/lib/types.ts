@@ -63,3 +63,12 @@ export interface Filters {
   budgetMax: number;
   query: string;
 }
+
+export interface ClubProfile {
+  clubId: number;
+  territory: string;
+  purpose: string;
+  activationObjectives: string[];
+  contentPillars: string[];
+  targetAudiences: string[];
+}

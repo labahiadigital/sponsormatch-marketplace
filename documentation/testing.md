@@ -8,19 +8,25 @@
 | Backend datos | `spacetime sql` queries | 20 clubes, 20 métricas verificados |
 | Frontend utils | Vitest (23 tests) | PASS |
 | Frontend config | Vitest (2 tests) | PASS |
-| Frontend stores | Vitest (17 tests) | PASS |
+| Frontend stores | Vitest (21 tests) | PASS |
+| Frontend sponsorship | Vitest (14 tests) | PASS |
+| Frontend activation | Vitest (7 tests) | PASS |
+| Frontend content-metrics | Vitest (6 tests) | PASS |
 | Frontend tipos | `svelte-check` | 0 errores, 0 warnings |
 | Landing build | `astro build` | Build exitoso, 1 página generada |
 
-**Total: 42 tests unitarios + verificaciones de build**
+**Total: 73 tests unitarios + verificaciones de build**
 
 ## Archivos de Test
 
 ```
 front/src/lib/
-├── utils.test.ts      # formatNumber, formatCurrency, formatDate, timeAgo, getStatusColor, getStatusBgColor
-├── config.test.ts     # SPACETIMEDB_URI formato, MODULE_NAME valor
-└── stores.test.ts     # clubs, clubMetrics, deals, messages, savedSearches integridad de datos
+├── utils.test.ts            # formatNumber, formatCurrency, formatDate, timeAgo, getStatusColor, getStatusBgColor
+├── config.test.ts           # SPACETIMEDB_URI formato, MODULE_NAME valor
+├── stores.test.ts           # clubs, clubMetrics, deals, messages, savedSearches, clubProfiles
+├── sponsorship.test.ts      # calculateROI, calculateMediaValue, getMatchScore, getAudienceSegments
+├── activation.test.ts       # generateActivationPlan (fases, acciones, presupuesto, objetivos)
+└── content-metrics.test.ts  # calculateContentMetrics, compareWithLocalMedia
 ```
 
 ## Qué se Testea
@@ -37,13 +43,34 @@ front/src/lib/
 - URI de SpacetimeDB es una URL WebSocket válida
 - Nombre del módulo es un string no vacío
 
-### stores.test.ts (17 tests)
+### stores.test.ts (21 tests)
 - 20 clubes con campos requeridos y IDs únicos
 - Deportes esperados presentes (Fútbol, Baloncesto, Pádel, Esports)
 - Métrica para cada club, engagement rates válidos
 - Deals con status válidos y montos positivos
-- Mensajes con contenido y timestamps válidos, referenciando deals existentes
+- Mensajes con contenido y timestamps válidos
 - Búsquedas guardadas con JSON parseable
+- `clubProfiles` tiene perfil para cada club con territory, purpose, objectives y content pillars
+
+### sponsorship.test.ts (14 tests)
+- `calculateMediaValue`: Valor positivo, proporcional a followers y engagement, cero para 0 followers
+- `calculateROI`: ROI positivo/negativo según inversión vs valor, coste por impresión escala con audiencia, growth amplifica ROI
+- `getMatchScore`: Score entre 0-100, presupuesto en rango puntúa más, más objetivos = mayor score
+- `getAudienceSegments`: Segmentos con nombre/porcentaje/tamaño, suman ~total followers, audiencia joven tiene más Digital Natives
+
+### activation.test.ts (7 tests)
+- Plan con 3 fases (pre, durante, post), cada una con acciones
+- Acciones con nombre, descripción, coste estimado y canal
+- Coste total dentro de ratio de activación (40% del presupuesto)
+- Esports incluye activaciones digitales, branding incluye visibilidad, CSR incluye acciones solidarias
+
+### content-metrics.test.ts (6 tests)
+- Métricas mensuales positivas para club activo
+- Valor mediático estimado positivo
+- Posts recomendados mínimo 3/semana
+- Más followers = más impresiones
+- Comparativa con medios locales incluye tipos y valores
+- Canales digitales y tradicionales en comparativas
 
 ## Ejecutar Tests
 
@@ -53,16 +80,16 @@ cd front
 # Todos los tests
 npx vitest run
 
-# Modo watch (re-ejecuta al cambiar archivos)
+# Modo watch
 npx vitest
 
 # Test específico
-npx vitest run src/lib/utils.test.ts
+npx vitest run src/lib/sponsorship.test.ts
 
 # Con cobertura
 npx vitest run --coverage
 
-# Verificación de tipos (no es Vitest, complementario)
+# Verificación de tipos
 npx svelte-check --tsconfig ./tsconfig.json
 ```
 
@@ -82,14 +109,12 @@ test: {
 1. **Componentes Svelte** (`@testing-library/svelte`):
    - `ClubCard` renderiza nombre, deporte, ubicación
    - `FilterPanel` emite eventos onChange con filtros correctos
-   - `DealCard` muestra status con color correcto
    - `MetricTile` formatea valores grandes correctamente
-   - `Toast` aparece y desaparece
 
 2. **Tests E2E** (Playwright):
-   - Flujo completo: Dashboard → Marketplace → Filtrar → Ver perfil → Proponer deal
-   - Guardar y cargar búsqueda guardada
-   - Enviar mensaje desde la página de mensajes
+   - Flujo completo: Dashboard → Marketplace → Filtrar → Ver perfil → Calcular ROI → Proponer deal
+   - Verificar plan de activación se genera correctamente por deporte
+   - Verificar mapa de audiencias y segmentos
 
 3. **Backend** (cuando SpacetimeDB soporte test runner):
    - Reducers con validación de errores

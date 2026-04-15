@@ -1,5 +1,5 @@
 import { describe, test, expect } from 'vitest';
-import { clubs, clubMetrics, deals, messages, savedSearches } from './stores.svelte';
+import { clubs, clubMetrics, deals, messages, savedSearches, clubProfiles } from './stores.svelte';
 
 describe('clubs store', () => {
   test('contains 20 clubs', () => {
@@ -112,6 +112,33 @@ describe('savedSearches store', () => {
   test('saved search names are non-empty', () => {
     for (const search of savedSearches) {
       expect(search.name).toBeTruthy();
+    }
+  });
+});
+
+describe('clubProfiles store', () => {
+  test('has profile for every club', () => {
+    for (const club of clubs) {
+      expect(clubProfiles.has(club.id)).toBe(true);
+    }
+  });
+
+  test('each profile has territory and purpose', () => {
+    for (const [, profile] of clubProfiles) {
+      expect(profile.territory).toBeTruthy();
+      expect(profile.purpose).toBeTruthy();
+    }
+  });
+
+  test('each profile has activation objectives', () => {
+    for (const [, profile] of clubProfiles) {
+      expect(profile.activationObjectives.length).toBeGreaterThan(0);
+    }
+  });
+
+  test('each profile has content pillars', () => {
+    for (const [, profile] of clubProfiles) {
+      expect(profile.contentPillars.length).toBeGreaterThan(0);
     }
   });
 });
