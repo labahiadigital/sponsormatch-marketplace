@@ -1,9 +1,11 @@
-import type { Club, ClubMetrics, Deal, Message, SavedSearch, ClubProfile } from './types';
+import type { Club, ClubMetrics, Deal, Message, SavedSearch, ClubProfile, SponsorshipAsset, NegotiationEvent, UserRole } from './types';
 
 export const appState = $state({
   isConnected: false,
   identity: null as string | null,
   sidebarCollapsed: false,
+  userRole: 'brand' as UserRole,
+  activeClubId: 1 as number,
 });
 
 export const clubs: Club[] = $state([
@@ -89,6 +91,29 @@ export const clubProfiles: Map<number, ClubProfile> = new Map([
   [18, { clubId: 18, territory: 'Cantera de medallistas olímpicos desde Castellón', purpose: 'Formar atletas de élite y fomentar el atletismo de base', activationObjectives: ['csr', 'branding', 'content'], contentPillars: ['Medallistas olímpicos', 'Atletismo de base', 'Castellón deportivo', 'Formación de élite'], targetAudiences: ['Atletas 18-45', 'Sector educativo', 'Instituciones', 'Medios deportivos'] }],
   [19, { clubId: 19, territory: 'Sede del Conde de Godó: tenis de élite con tradición centenaria', purpose: 'Mantener Barcelona como referente del tenis ATP mundial', activationObjectives: ['experience', 'branding', 'content'], contentPillars: ['ATP Conde de Godó', 'Tradición centenaria', 'Club social premium', 'Tenis y Barcelona'], targetAudiences: ['Público premium 25-60', 'Turismo deportivo', 'Corporativo', 'Medios internacionales'] }],
   [20, { clubId: 20, territory: 'Rugby con tradición y valores en Castilla y León', purpose: 'Promover los valores del rugby: respeto, disciplina y comunidad', activationObjectives: ['csr', 'experience'], contentPillars: ['Valores del rugby', 'Liga nacional', 'Comunidad vallisoletana', 'Deporte de equipo'], targetAudiences: ['Fans rugby 20-45', 'Familias', 'Sector educativo', 'Empresas locales'] }],
+]);
+
+export const sponsorshipAssets: SponsorshipAsset[] = $state([
+  { id: 1, clubId: 1, name: 'Kit Sleeve Branding', description: 'Colocación premium en primera y segunda camiseta. Emisión global en TV.', price: 2400000, pricePeriod: 'Temporada', category: 'naming', tags: ['digital reach', 'tv exposure'], available: true },
+  { id: 2, clubId: 1, name: 'Stadium Naming Rights', description: 'Integración completa de infraestructura y branding de referencia en el estadio.', price: 12000000, pricePeriod: '5 Años', category: 'naming', tags: ['naming', 'hospitality'], available: true },
+  { id: 3, clubId: 1, name: 'Training Facility Title', description: 'Asociación con la cultura de alto rendimiento y desarrollo juvenil.', price: 850000, pricePeriod: 'Temporada', category: 'sub-brand', tags: ['sub-brand', 'performance'], available: true },
+  { id: 4, clubId: 1, name: 'Match Day Sponsor', description: 'Patrocinio de jornada con activación en estadio y redes sociales.', price: 150000, pricePeriod: 'Evento', category: 'experience', tags: ['matchday', 'experience'], available: true },
+  { id: 5, clubId: 1, name: 'Digital Content Partner', description: 'Creación de contenido exclusivo para canales digitales del club.', price: 500000, pricePeriod: 'Temporada', category: 'content', tags: ['digital', 'social media'], available: false },
+  { id: 6, clubId: 5, name: 'Camiseta segunda equipación', description: 'Logo en la segunda camiseta oficial.', price: 200000, pricePeriod: 'Temporada', category: 'naming', tags: ['branding'], available: true },
+  { id: 7, clubId: 5, name: 'Patrocinio cantera', description: 'Equipamiento y branding en categorías inferiores.', price: 50000, pricePeriod: 'Temporada', category: 'csr', tags: ['youth', 'community'], available: true },
+  { id: 8, clubId: 13, name: 'Naming LVP Team', description: 'Naming rights del equipo en la Liga de Videojuegos Profesional.', price: 80000, pricePeriod: 'Temporada', category: 'naming', tags: ['esports', 'streaming'], available: true },
+  { id: 9, clubId: 13, name: 'Streaming Overlay Sponsor', description: 'Presencia en overlays de streaming del equipo.', price: 30000, pricePeriod: 'Temporada', category: 'digital', tags: ['twitch', 'youtube'], available: true },
+  { id: 10, clubId: 10, name: 'Torneo Corporativo', description: 'Organización de torneo corporativo con branding exclusivo.', price: 15000, pricePeriod: 'Evento', category: 'experience', tags: ['networking', 'corporate'], available: true },
+]);
+
+export const negotiationEvents: NegotiationEvent[] = $state([
+  { id: 1, dealId: 1, type: 'created', description: 'Propuesta inicial a 250.000 €', timestamp: '2026-03-15T10:00:00Z' },
+  { id: 2, dealId: 1, type: 'modified', description: 'Añadida cláusula de exclusividad', timestamp: '2026-03-20T14:00:00Z' },
+  { id: 3, dealId: 1, type: 'accepted', description: 'Contrato firmado', timestamp: '2026-03-25T09:00:00Z' },
+  { id: 4, dealId: 2, type: 'created', description: 'Propuesta inicial a 50.000 €', timestamp: '2026-04-01T10:00:00Z' },
+  { id: 5, dealId: 3, type: 'created', description: 'Propuesta inicial a 80.000 €', timestamp: '2026-04-10T10:00:00Z' },
+  { id: 6, dealId: 4, type: 'created', description: 'Propuesta inicial a 15.000 €', timestamp: '2026-02-20T10:00:00Z' },
+  { id: 7, dealId: 4, type: 'rejected', description: 'Rechazado: no encaja con la estrategia actual', timestamp: '2026-02-25T15:00:00Z' },
 ]);
 
 export const savedSearches: SavedSearch[] = $state([

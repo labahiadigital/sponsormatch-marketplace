@@ -72,3 +72,25 @@ export interface ClubProfile {
   contentPillars: string[];
   targetAudiences: string[];
 }
+
+export interface SponsorshipAsset {
+  id: number;
+  clubId: number;
+  name: string;
+  description: string;
+  price: number;
+  pricePeriod: string;
+  category: string;
+  tags: string[];
+  available: boolean;
+}
+
+export interface NegotiationEvent {
+  id: number;
+  dealId: number;
+  type: 'created' | 'modified' | 'accepted' | 'rejected' | 'counter';
+  description: string;
+  timestamp: string;
+}
+
+export type UserRole = 'brand' | 'club';
