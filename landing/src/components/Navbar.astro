@@ -1,0 +1,43 @@
+---
+
+---
+
+<nav class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" id="navbar">
+  <div class="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between">
+    <a href="/" class="flex items-center gap-3">
+      <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-primary-container to-secondary-container flex items-center justify-center">
+        <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+        </svg>
+      </div>
+      <span class="text-lg font-bold text-on-surface tracking-tight">SponsorMatch</span>
+    </a>
+
+    <div class="hidden md:flex items-center gap-8">
+      <a href="#features" class="text-sm text-on-surface-variant hover:text-primary transition-colors">Características</a>
+      <a href="#how-it-works" class="text-sm text-on-surface-variant hover:text-primary transition-colors">Cómo funciona</a>
+      <a href="#pricing" class="text-sm text-on-surface-variant hover:text-primary transition-colors">Precios</a>
+      <a href="#testimonials" class="text-sm text-on-surface-variant hover:text-primary transition-colors">Testimonios</a>
+    </div>
+
+    <div class="flex items-center gap-3">
+      <a href="/app" class="hidden sm:inline-flex text-sm text-on-surface-variant hover:text-on-surface transition-colors px-4 py-2">
+        Iniciar sesión
+      </a>
+      <a href="/app" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-gradient-to-r from-primary-container to-secondary-container text-white text-sm font-semibold hover:shadow-[0_0_20px_rgba(37,99,235,0.4)] transition-all duration-300">
+        Empezar gratis
+      </a>
+    </div>
+  </div>
+</nav>
+
+<script>
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 20) {
+      navbar?.classList.add('backdrop-blur-2xl', 'bg-surface/80');
+    } else {
+      navbar?.classList.remove('backdrop-blur-2xl', 'bg-surface/80');
+    }
+  });
+</script>

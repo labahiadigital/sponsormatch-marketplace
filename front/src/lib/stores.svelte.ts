@@ -1,0 +1,74 @@
+import type { Club, ClubMetrics, Deal, Message, SavedSearch } from './types';
+
+export const appState = $state({
+  isConnected: false,
+  identity: null as string | null,
+  sidebarCollapsed: false,
+});
+
+export const clubs: Club[] = $state([
+  { id: 1, name: 'Real Madrid CF', sport: 'Fútbol', location: 'Madrid', logoUrl: 'https://ui-avatars.com/api/?name=Real+Madrid&background=2563eb&color=fff&size=128', bannerUrl: '', description: 'Uno de los clubes más laureados del mundo con 15 Champions League.', budgetMin: 500000, budgetMax: 5000000, audienceAge: '18-45', audienceGender: 'Mixto', website: 'realmadrid.com', foundedYear: 1902 },
+  { id: 2, name: 'FC Barcelona', sport: 'Fútbol', location: 'Barcelona', logoUrl: 'https://ui-avatars.com/api/?name=FC+Barcelona&background=2563eb&color=fff&size=128', bannerUrl: '', description: 'Club emblemático con cantera de élite y audiencia global.', budgetMin: 500000, budgetMax: 5000000, audienceAge: '18-45', audienceGender: 'Mixto', website: 'fcbarcelona.com', foundedYear: 1899 },
+  { id: 3, name: 'Atlético de Madrid', sport: 'Fútbol', location: 'Madrid', logoUrl: 'https://ui-avatars.com/api/?name=Atletico+Madrid&background=2563eb&color=fff&size=128', bannerUrl: '', description: 'Club con identidad fuerte y afición apasionada.', budgetMin: 200000, budgetMax: 2000000, audienceAge: '20-50', audienceGender: 'Mixto', website: 'atleticodemadrid.com', foundedYear: 1903 },
+  { id: 4, name: 'Valencia CF', sport: 'Fútbol', location: 'Valencia', logoUrl: 'https://ui-avatars.com/api/?name=Valencia+CF&background=2563eb&color=fff&size=128', bannerUrl: '', description: 'Histórico del fútbol español con gran arraigo local.', budgetMin: 100000, budgetMax: 1000000, audienceAge: '18-55', audienceGender: 'Mixto', website: 'valenciacf.com', foundedYear: 1919 },
+  { id: 5, name: 'Real Betis', sport: 'Fútbol', location: 'Sevilla', logoUrl: 'https://ui-avatars.com/api/?name=Real+Betis&background=2563eb&color=fff&size=128', bannerUrl: '', description: 'Club con una de las aficiones más fieles de España.', budgetMin: 80000, budgetMax: 800000, audienceAge: '18-50', audienceGender: 'Mixto', website: 'realbetisbalompie.es', foundedYear: 1907 },
+  { id: 6, name: 'Real Sociedad', sport: 'Fútbol', location: 'San Sebastián', logoUrl: 'https://ui-avatars.com/api/?name=Real+Sociedad&background=2563eb&color=fff&size=128', bannerUrl: '', description: 'Club vasco con proyección europea y cantera potente.', budgetMin: 100000, budgetMax: 900000, audienceAge: '20-45', audienceGender: 'Mixto', website: 'realsociedad.eus', foundedYear: 1909 },
+  { id: 7, name: 'CB Baskonia', sport: 'Baloncesto', location: 'Vitoria', logoUrl: 'https://ui-avatars.com/api/?name=Baskonia&background=7d4ce7&color=fff&size=128', bannerUrl: '', description: 'Referente de la ACB y la Euroliga con gran tradición.', budgetMin: 50000, budgetMax: 500000, audienceAge: '20-50', audienceGender: 'Mixto', website: 'baskonia.com', foundedYear: 1959 },
+  { id: 8, name: 'Real Madrid Baloncesto', sport: 'Baloncesto', location: 'Madrid', logoUrl: 'https://ui-avatars.com/api/?name=RM+Basket&background=7d4ce7&color=fff&size=128', bannerUrl: '', description: 'El club de baloncesto más laureado de Europa.', budgetMin: 200000, budgetMax: 2000000, audienceAge: '18-50', audienceGender: 'Mixto', website: 'realmadrid.com', foundedYear: 1931 },
+  { id: 9, name: 'FC Barcelona Basket', sport: 'Baloncesto', location: 'Barcelona', logoUrl: 'https://ui-avatars.com/api/?name=FCB+Basket&background=7d4ce7&color=fff&size=128', bannerUrl: '', description: 'Sección de baloncesto del Barça con presencia global.', budgetMin: 200000, budgetMax: 2000000, audienceAge: '18-50', audienceGender: 'Mixto', website: 'fcbarcelona.com', foundedYear: 1926 },
+  { id: 10, name: 'Club Padel Nuestro', sport: 'Pádel', location: 'Málaga', logoUrl: 'https://ui-avatars.com/api/?name=Padel+Nuestro&background=03b5d3&color=fff&size=128', bannerUrl: '', description: 'Referente del pádel en España con presencia en circuitos WPT.', budgetMin: 20000, budgetMax: 200000, audienceAge: '25-55', audienceGender: 'Mixto', website: 'padelnuestro.com', foundedYear: 2010 },
+  { id: 11, name: 'WPT Academy', sport: 'Pádel', location: 'Madrid', logoUrl: 'https://ui-avatars.com/api/?name=WPT&background=03b5d3&color=fff&size=128', bannerUrl: '', description: 'Academia oficial del World Padel Tour con jugadores de élite.', budgetMin: 30000, budgetMax: 300000, audienceAge: '20-45', audienceGender: 'Mixto', website: 'worldpadeltour.com', foundedYear: 2013 },
+  { id: 12, name: 'CN Barcelona', sport: 'Natación', location: 'Barcelona', logoUrl: 'https://ui-avatars.com/api/?name=CN+BCN&background=03b5d3&color=fff&size=128', bannerUrl: '', description: 'Uno de los clubes deportivos más antiguos de España.', budgetMin: 15000, budgetMax: 150000, audienceAge: '15-40', audienceGender: 'Mixto', website: 'cnab.cat', foundedYear: 1907 },
+  { id: 13, name: 'Movistar Riders', sport: 'Esports', location: 'Madrid', logoUrl: 'https://ui-avatars.com/api/?name=Movistar+Riders&background=2563eb&color=fff&size=128', bannerUrl: '', description: 'Organización líder de esports en España y Latinoamérica.', budgetMin: 50000, budgetMax: 500000, audienceAge: '16-35', audienceGender: '70% Masculino', website: 'movistarriders.com', foundedYear: 2017 },
+  { id: 14, name: 'KOI', sport: 'Esports', location: 'Barcelona', logoUrl: 'https://ui-avatars.com/api/?name=KOI&background=2563eb&color=fff&size=128', bannerUrl: '', description: 'Equipo fundado por Ibai Llanos y Gerard Piqué.', budgetMin: 80000, budgetMax: 800000, audienceAge: '14-30', audienceGender: '65% Masculino', website: 'teamkoi.com', foundedYear: 2021 },
+  { id: 15, name: 'UCAM Murcia', sport: 'Baloncesto', location: 'Murcia', logoUrl: 'https://ui-avatars.com/api/?name=UCAM&background=7d4ce7&color=fff&size=128', bannerUrl: '', description: 'Club universitario con proyección en ACB.', budgetMin: 30000, budgetMax: 300000, audienceAge: '18-45', audienceGender: 'Mixto', website: 'ucamdeportes.com', foundedYear: 1985 },
+  { id: 16, name: 'Surf Club Zarautz', sport: 'Surf', location: 'Zarautz', logoUrl: 'https://ui-avatars.com/api/?name=SC+Zarautz&background=03b5d3&color=fff&size=128', bannerUrl: '', description: 'Club de surf con competidores internacionales y marca lifestyle.', budgetMin: 10000, budgetMax: 100000, audienceAge: '18-35', audienceGender: '60% Masculino', website: 'surfclubzarautz.com', foundedYear: 1989 },
+  { id: 17, name: 'USCM Triatlón', sport: 'Triatlón', location: 'Madrid', logoUrl: 'https://ui-avatars.com/api/?name=USCM&background=03b5d3&color=fff&size=128', bannerUrl: '', description: 'Club de triatlón con atletas en circuitos Ironman.', budgetMin: 10000, budgetMax: 80000, audienceAge: '25-50', audienceGender: '55% Masculino', website: 'uscmtriatlon.es', foundedYear: 2005 },
+  { id: 18, name: 'CA Playas Castellón', sport: 'Atletismo', location: 'Castellón', logoUrl: 'https://ui-avatars.com/api/?name=CA+Playas&background=03b5d3&color=fff&size=128', bannerUrl: '', description: 'Referente del atletismo español con medallistas olímpicos.', budgetMin: 20000, budgetMax: 200000, audienceAge: '18-45', audienceGender: 'Mixto', website: 'atletismoplayas.com', foundedYear: 1957 },
+  { id: 19, name: 'RCT Barcelona', sport: 'Tenis', location: 'Barcelona', logoUrl: 'https://ui-avatars.com/api/?name=RCTB&background=03b5d3&color=fff&size=128', bannerUrl: '', description: 'Sede del Conde de Godó, uno de los torneos ATP más prestigiosos.', budgetMin: 100000, budgetMax: 1000000, audienceAge: '25-60', audienceGender: 'Mixto', website: 'rctb1899.es', foundedYear: 1899 },
+  { id: 20, name: 'Atlético Valladolid Rugby', sport: 'Rugby', location: 'Valladolid', logoUrl: 'https://ui-avatars.com/api/?name=AV+Rugby&background=03b5d3&color=fff&size=128', bannerUrl: '', description: 'Club de rugby con amplia tradición en la liga nacional.', budgetMin: 10000, budgetMax: 80000, audienceAge: '20-45', audienceGender: '65% Masculino', website: 'elvalladolidrugby.com', foundedYear: 1984 },
+]);
+
+export const clubMetrics: Map<number, ClubMetrics> = new Map([
+  [1, { id: 1, clubId: 1, followers: 150000000, engagementRate: 4.2, reach: 80000000, avgLikes: 500000, avgComments: 25000, growthPercent: 3.5 }],
+  [2, { id: 2, clubId: 2, followers: 120000000, engagementRate: 4.5, reach: 70000000, avgLikes: 450000, avgComments: 22000, growthPercent: 2.8 }],
+  [3, { id: 3, clubId: 3, followers: 45000000, engagementRate: 3.8, reach: 25000000, avgLikes: 180000, avgComments: 9000, growthPercent: 4.1 }],
+  [4, { id: 4, clubId: 4, followers: 8000000, engagementRate: 3.2, reach: 4000000, avgLikes: 35000, avgComments: 2000, growthPercent: 1.5 }],
+  [5, { id: 5, clubId: 5, followers: 6000000, engagementRate: 5.1, reach: 3500000, avgLikes: 42000, avgComments: 3000, growthPercent: 6.2 }],
+  [6, { id: 6, clubId: 6, followers: 5000000, engagementRate: 4.0, reach: 2800000, avgLikes: 28000, avgComments: 1800, growthPercent: 3.0 }],
+  [7, { id: 7, clubId: 7, followers: 800000, engagementRate: 3.5, reach: 400000, avgLikes: 5000, avgComments: 400, growthPercent: 2.0 }],
+  [8, { id: 8, clubId: 8, followers: 25000000, engagementRate: 3.9, reach: 12000000, avgLikes: 120000, avgComments: 6000, growthPercent: 2.5 }],
+  [9, { id: 9, clubId: 9, followers: 22000000, engagementRate: 4.1, reach: 11000000, avgLikes: 110000, avgComments: 5500, growthPercent: 2.3 }],
+  [10, { id: 10, clubId: 10, followers: 500000, engagementRate: 6.5, reach: 300000, avgLikes: 8000, avgComments: 600, growthPercent: 12.0 }],
+  [11, { id: 11, clubId: 11, followers: 1200000, engagementRate: 5.8, reach: 700000, avgLikes: 15000, avgComments: 1200, growthPercent: 9.5 }],
+  [12, { id: 12, clubId: 12, followers: 200000, engagementRate: 2.8, reach: 100000, avgLikes: 2000, avgComments: 150, growthPercent: 1.0 }],
+  [13, { id: 13, clubId: 13, followers: 3000000, engagementRate: 7.2, reach: 2000000, avgLikes: 50000, avgComments: 8000, growthPercent: 15.0 }],
+  [14, { id: 14, clubId: 14, followers: 5000000, engagementRate: 8.5, reach: 3500000, avgLikes: 80000, avgComments: 12000, growthPercent: 25.0 }],
+  [15, { id: 15, clubId: 15, followers: 350000, engagementRate: 3.0, reach: 180000, avgLikes: 3000, avgComments: 200, growthPercent: 1.8 }],
+  [16, { id: 16, clubId: 16, followers: 120000, engagementRate: 4.5, reach: 60000, avgLikes: 1500, avgComments: 120, growthPercent: 5.0 }],
+  [17, { id: 17, clubId: 17, followers: 80000, engagementRate: 3.8, reach: 40000, avgLikes: 900, avgComments: 80, growthPercent: 2.2 }],
+  [18, { id: 18, clubId: 18, followers: 250000, engagementRate: 3.3, reach: 130000, avgLikes: 2500, avgComments: 180, growthPercent: 1.5 }],
+  [19, { id: 19, clubId: 19, followers: 1500000, engagementRate: 3.6, reach: 800000, avgLikes: 12000, avgComments: 900, growthPercent: 2.0 }],
+  [20, { id: 20, clubId: 20, followers: 60000, engagementRate: 4.0, reach: 30000, avgLikes: 700, avgComments: 60, growthPercent: 3.0 }],
+]);
+
+export const deals: Deal[] = $state([
+  { id: 1, brandIdentity: 'demo', clubId: 1, status: 'aceptado', amount: 250000, title: 'Patrocinio camiseta temporada 26/27', description: 'Logo en segunda camiseta', startDate: '2026-07-01', endDate: '2027-06-30', createdAt: '2026-03-15' },
+  { id: 2, brandIdentity: 'demo', clubId: 5, status: 'pendiente', amount: 50000, title: 'Patrocinio categorías inferiores', description: 'Equipamiento cantera', startDate: '2026-09-01', endDate: '2027-06-30', createdAt: '2026-04-01' },
+  { id: 3, brandIdentity: 'demo', clubId: 13, status: 'pendiente', amount: 80000, title: 'Naming de competición esports', description: 'Naming rights del equipo en LVP', startDate: '2026-06-01', endDate: '2026-12-31', createdAt: '2026-04-10' },
+  { id: 4, brandIdentity: 'demo', clubId: 10, status: 'rechazado', amount: 15000, title: 'Evento promocional pádel', description: 'Torneo corporativo', startDate: '2026-05-01', endDate: '2026-05-03', createdAt: '2026-02-20' },
+]);
+
+export const messages: Message[] = $state([
+  { id: 1, senderIdentity: 'demo', receiverIdentity: 'club1', dealId: 1, content: 'Hola, estamos interesados en el patrocinio para la temporada 26/27.', timestamp: '2026-04-10T10:30:00Z', read: true },
+  { id: 2, senderIdentity: 'club1', receiverIdentity: 'demo', dealId: 1, content: '¡Genial! Nos encantaría discutir los detalles. ¿Podemos agendar una llamada?', timestamp: '2026-04-10T11:15:00Z', read: true },
+  { id: 3, senderIdentity: 'demo', receiverIdentity: 'club1', dealId: 1, content: 'Por supuesto, ¿qué tal el jueves a las 10:00?', timestamp: '2026-04-10T11:45:00Z', read: true },
+  { id: 4, senderIdentity: 'club1', receiverIdentity: 'demo', dealId: 1, content: 'Perfecto, te envío la invitación por email. ¡Nos vemos!', timestamp: '2026-04-10T12:00:00Z', read: false },
+  { id: 5, senderIdentity: 'demo', receiverIdentity: 'club5', dealId: 2, content: 'Nos gustaría patrocinar las categorías inferiores del Betis.', timestamp: '2026-04-12T09:00:00Z', read: true },
+  { id: 6, senderIdentity: 'club5', receiverIdentity: 'demo', dealId: 2, content: 'Interesante propuesta. Envío información detallada del programa de cantera.', timestamp: '2026-04-12T14:30:00Z', read: false },
+]);
+
+export const savedSearches: SavedSearch[] = $state([
+  { id: 1, brandIdentity: 'demo', name: 'Fútbol Primera División', filtersJson: '{"sport":"Fútbol","budgetMin":100000,"budgetMax":2000000}', createdAt: '2026-04-01' },
+  { id: 2, brandIdentity: 'demo', name: 'Esports alto engagement', filtersJson: '{"sport":"Esports","budgetMin":50000}', createdAt: '2026-04-05' },
+]);

@@ -1,0 +1,92 @@
+---
+description: Apply these rules when making changes to the project
+globs:
+alwaysApply: true
+---
+
+Update this rule if user requested changes to the project requirement, etc.
+# PRD: Marketplace Explorer para SponsorMatch
+
+## 1. Resumen Ejecutivo (Executive Summary)
+La funcionalidad **Marketplace Explorer** permite a las **Marcas** encontrar de forma rápida y precisa los **Clubes Deportivos** y **Deportistas** que mejor se ajusten a su presupuesto, audiencia objetivo y criterios de ROI. Actualmente las marcas invierten demasiado tiempo navegando listados no filtrados, lo que retrasa la generación de propuestas y enfría oportunidades de patrocinio.
+
+Estamos construyendo esta herramienta ahora para impulsar la **eficiencia** del proceso de búsqueda y aumentar la **tasa de conversión** de exploración a contacto. Con filtros avanzados y recomendaciones inteligentes basadas en datos demográficos, buscamos reducir el tiempo de descubrimiento a minutos y mejorar la satisfacción del cliente.
+
+## 2. Objetivos y Métricas de Éxito (OKRs / KPIs)
+1. **Tasa de conversión de búsqueda a contacto** ≥ 15% en los primeros 3 meses.
+2. **Tiempo medio de descubrimiento** de una oportunidad ≤ 10 minutos desde inicio de búsqueda.
+3. **Número de búsquedas activas** por mes ≥ 1.000 (engagement con filtros avanzados).
+
+## 3. Alcance (Scope)
+**In Scope (MVP):**
+- Búsqueda por filtros: presupuesto, deporte, ubicación, audiencia demográfica.
+- Panel de resultados paginados con vista de tarjetas y métricas clave (seguidores, engagement).
+- Guardar búsquedas y configuraciones de filtro.
+- Recomendaciones automáticas basadas en IA (“Quién ha patrocinado perfiles similares”).
+- Integraciones: autenticación (Auth), analítica básica (Analytics).
+
+**Out of Scope (Fase 2+):**
+- Integración de pagos o contratos directos.
+- Chat en tiempo real dentro del explorador.
+- Analíticas avanzadas (dashboards de ROI, proyecciones ML).
+- Conexión con sistemas externos de datos (CRM de terceros).
+
+## 4. Historias de Usuario (User Stories)
+
+1. **Como Marca**, quiero filtrar clubes por presupuesto para poder centrarme sólo en los que encajan con mi rango financiero.
+   - **GIVEN** estoy autenticado como Marca
+   - **WHEN** abro el Explorer y aplico filtro de `presupuesto mínimo` y `presupuesto máximo`
+   - **THEN** sólo veo clubes cuyos rangos de patrocinio están dentro de esos valores.
+
+2. **Como Marca**, quiero guardar una configuración de búsqueda recurrente para poder reusar mis filtros sin reconfigurarlos cada vez.
+   - **GIVEN** tengo resultados activos de búsqueda
+   - **WHEN** hago clic en “Guardar búsqueda” y le asigno un nombre
+   - **THEN** la configuración queda disponible en mi sección “Mis búsquedas”.
+
+3. **Como Marca**, quiero recomendaciones automáticas de clubes similares a mi perfil objetivo para descubrir oportunidades que no conocía.
+   - **GIVEN** he realizado al menos una búsqueda con filtros completos
+   - **WHEN** termino la búsqueda y expando el panel de sugerencias
+   - **THEN** recibo una lista de 5–10 clubes recomendados según IA.
+
+4. **Como Marca**, quiero ver las métricas clave de un club (seguidores, engagement) para evaluar rápidamente su potencial.
+   - **GIVEN** estoy en la lista de resultados
+   - **WHEN** paso el cursor o toco una tarjeta de club
+   - **THEN** aparece un tooltip o overlay con KPIs principales.
+
+## 5. Requisitos Funcionales
+- **Formulario de filtros**: campos obligatorios (presupuesto min/máx), opcionales (deporte, ubicación, edad demográfica). Validar rangos numéricos.
+- **Consulta a spacetimedb**: garantizar paginación, orden por relevancia y por engagement.
+- **Guardado de búsquedas**: cada usuario Marca puede tener hasta 10 búsquedas guardadas.
+- **Permisos**:
+  - **Marcas**: ver y guardar filtros, recibir recomendaciones.
+  - **Clubes/Deportistas**: sólo ver sus propias métricas; no pueden usar Explorer.
+- **Notificaciones In-App**: al guardar una búsqueda, notificar éxito o error.
+- **IA de Recomendación**: servicio interno que, usando perfiles de patrocinios previos, devuelve un listado ordenado.
+
+## 6. Requisitos No Funcionales
+- **Performance**: tiempo de respuesta de búsqueda ≤ 500 ms (p95).
+- **Escalabilidad**: soportar 200 búsquedas concurrentes sin degradación.
+- **Seguridad**: datos en tránsito cifrados (TLS 1.2+); en reposo cifrado AES-256.
+- **Privacidad**: cumplir GDPR; sólo exponer datos públicos de clubes.
+- **Disponibilidad**: uptime ≥ 99,9%.
+
+## 7. UI / UX y Sistema de Diseño
+- **Tema**: NovaDigital Dark Theme (fondo #060B14, glassmorphism en tarjetas, brillos sutiles cyan/púrpura).
+- **Componentes**:
+  - **Barra lateral** colapsable con secciones: Filtros, Mis búsquedas.
+  - **Modal** para guardar búsqueda.
+  - **Tarjetas** de resultados con efecto glassmorphism y hover states.
+  - **Tooltip/Overlay** para KPIs (uso de Recharts para mini-gráficos de engagement).
+- **Accesibilidad**: contraste de texto mínimo 4.5:1.
+- **Responsive**: adaptarse a desktop, tablet y móvil.
+
+## 8. Preguntas Abiertas / Riesgos (Open Questions & Risks)
+- ¿Disponemos de datos demográficos fiables para todos los clubes? ¿Se necesita pipeline ETL adicional?
+- ¿Cuál es el algoritmo exacto de IA para recomendaciones y cómo se entrena con datos históricos?
+- Riesgo de **rate limits** en spacetimedb: requerir caching intermedio.
+- Coordinación con Backend: ¿está lista la API de filtros y recomendaciones para la fase MVP?
+- Posible ambigüedad en rangos de presupuesto si un club no declara cifras exactas.
+
+---
+
+*Este documento usa Astro, Svelte y spacetimedb en backend, con integraciones de Auth, Analytics y soporte de Cursor como IDE plugin.*

@@ -1,0 +1,105 @@
+{
+  "tasks": [
+    {
+      "id": 1,
+      "title": "Setup SpacetimeDB schema for Marketplace Explorer",
+      "status": "pending",
+      "details": "Create SpacetimeDB modules for `ClubProfile`, `Metrics`, and `SavedSearch`. Ensure budget ranges, sport categories, and demographic data types are correctly defined and indexed for fast querying. Establish relationships between Brand users and their saved searches.",
+      "priority": "high",
+      "description": "Define database tables and relationships for Clubs, metrics, and saved searches to support the Marketplace Explorer.",
+      "dependencies": [],
+      "testStrategy": "Write unit tests for SpacetimeDB schema initialization to verify data insertion, type validation, and index creation."
+    },
+    {
+      "id": 2,
+      "title": "Implement Search and Filter Reducers in SpacetimeDB",
+      "status": "pending",
+      "details": "Create a reducer `search_clubs` accepting filter parameters. Implement logic to handle optional fields and enforce budget range matching. Ensure the query returns paginated results sorted by relevance and engagement metrics. Implement caching strategies if necessary to meet the 500ms response time.",
+      "priority": "high",
+      "description": "Develop backend logic to filter clubs by budget, sport, location, and demographics with pagination.",
+      "dependencies": [],
+      "testStrategy": "Execute SpacetimeDB queries with various filter combinations (min/max budget, specific sports) and verify correct result sets, sorting order, and pagination metadata."
+    },
+    {
+      "id": 3,
+      "title": "Build AI Recommendation Service in Backend",
+      "status": "pending",
+      "details": "Create a SpacetimeDB reducer or module that analyzes a Brand's past searches and sponsorships to return 5-10 similar club profiles. Use a basic demographic and sport similarity matching algorithm for the MVP.",
+      "priority": "medium",
+      "description": "Implement the internal service to generate club recommendations based on previous sponsorships and demographic overlap.",
+      "dependencies": [],
+      "testStrategy": "Mock historical sponsorship data and assert that the recommendation algorithm returns the expected similar profiles based on shared attributes."
+    },
+    {
+      "id": 4,
+      "title": "Develop Explorer Layout and Filter Sidebar UI",
+      "status": "pending",
+      "details": "Use the NovaDigital Dark Theme (#060B14 background). Build a Svelte component for the sidebar containing form inputs for budget (min/max), sport, and location. Implement client-side validation for numeric ranges to prevent invalid queries.",
+      "priority": "high",
+      "description": "Build the main page layout and collapsible sidebar for filters using Astro and Svelte.",
+      "dependencies": [],
+      "testStrategy": "Render testing for the sidebar component. Verify collapsible behavior, responsive design on mobile/tablet, and form input validation (e.g., min budget cannot exceed max budget)."
+    },
+    {
+      "id": 5,
+      "title": "Create Club Result Cards with Glassmorphism",
+      "status": "pending",
+      "details": "Build a Svelte component for the club card. Apply glassmorphism CSS (backdrop-filter), and cyan/purple glows on hover states. Display basic info like name, sport, location, and a prominent avatar/logo.",
+      "priority": "high",
+      "description": "Design and implement the result cards for club profiles using the defined design system.",
+      "dependencies": [],
+      "testStrategy": "Visual regression testing for dark mode and glassmorphism effects. Verify hover states trigger the correct CSS transitions and that text contrast meets the 4.5:1 accessibility requirement."
+    },
+    {
+      "id": 6,
+      "title": "Implement KPI Tooltips and Mini-charts",
+      "status": "pending",
+      "details": "Integrate Recharts within a Svelte tooltip/overlay component. Trigger the overlay on card hover or touch. Display followers and engagement trends over time using minimal, dark-themed sparklines or bar charts.",
+      "priority": "medium",
+      "description": "Add interactive overlays to club cards displaying engagement metrics using Recharts.",
+      "dependencies": [],
+      "testStrategy": "Simulate mouse hover and touch events in component tests. Verify the tooltip renders within the viewport without clipping and Recharts data populates correctly from mock props."
+    },
+    {
+      "id": 7,
+      "title": "Integrate Frontend Search State with SpacetimeDB",
+      "status": "pending",
+      "details": "Use Svelte stores to manage global search state. Call the `search_clubs` SpacetimeDB reducer when filters change (with debouncing). Handle loading states with skeleton loaders, empty result states, and pagination controls.",
+      "priority": "high",
+      "description": "Connect the filter sidebar and result cards to the backend search API.",
+      "dependencies": [],
+      "testStrategy": "End-to-end test simulating a user entering filter criteria, submitting the search, verifying the loading state, and ensuring the correct cards are rendered on the page."
+    },
+    {
+      "id": 8,
+      "title": "Implement Save Search Functionality",
+      "status": "pending",
+      "details": "Create a Svelte modal for naming a search. Call the `save_search` reducer. Update the 'Mis búsquedas' section in the sidebar. Add in-app toast notifications for success/error. Enforce the 10-search limit gracefully.",
+      "priority": "medium",
+      "description": "Build the modal and backend integration to allow Brands to save up to 10 search configurations.",
+      "dependencies": [],
+      "testStrategy": "Test saving a search, verifying the toast notification, checking the sidebar update, and attempting to save an 11th search to verify the limit error is displayed."
+    },
+    {
+      "id": 9,
+      "title": "Integrate AI Recommendations Panel UI",
+      "status": "pending",
+      "details": "Add an expandable panel in the Explorer view. Fetch recommendations from the backend when a full filter search completes. Reuse the Club Result Card components to display the 5-10 suggested profiles.",
+      "priority": "low",
+      "description": "Build the frontend panel to display suggested clubs and connect it to the recommendation backend.",
+      "dependencies": [],
+      "testStrategy": "Verify the recommendations panel populates after a search completes. Test the expand/collapse behavior of the panel and ensure cards render correctly."
+    },
+    {
+      "id": 10,
+      "title": "Implement Role-Based Access and Search Analytics",
+      "status": "pending",
+      "details": "Add Auth checks in Astro middleware to block Club users from the `/explorer` route, redirecting them appropriately. Integrate the Analytics tool to track 'search_executed' events with filter metadata to measure the 1.000 searches/month KPI.",
+      "priority": "high",
+      "description": "Restrict Explorer access to Brand users and track search metrics for KPIs.",
+      "dependencies": [],
+      "testStrategy": "E2E test logging in as a Club and verifying forbidden access. Verify analytics events are fired correctly in the network tab when a search is executed by a Brand."
+    }
+  ],
+  "expanded_tasks": []
+}

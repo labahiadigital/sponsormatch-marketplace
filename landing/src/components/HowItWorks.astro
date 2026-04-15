@@ -1,0 +1,48 @@
+---
+const steps = [
+  {
+    number: '01',
+    title: 'Define tu búsqueda',
+    description: 'Configura tus filtros: presupuesto, deporte, ubicación y audiencia objetivo. El sistema adapta los resultados en tiempo real.',
+  },
+  {
+    number: '02',
+    title: 'Explora y compara',
+    description: 'Navega por tarjetas de clubes con métricas clave. Pasa el cursor para ver KPIs detallados y gráficos de tendencia.',
+  },
+  {
+    number: '03',
+    title: 'Recibe recomendaciones',
+    description: 'La IA analiza tu perfil y patrocinios previos similares para sugerirte los clubes con mayor potencial de retorno.',
+  },
+  {
+    number: '04',
+    title: 'Contacta y cierra',
+    description: 'Envía propuestas directamente desde la plataforma. Gestiona todo el ciclo del acuerdo sin salir de SponsorMatch.',
+  },
+];
+---
+
+<section id="how-it-works" class="relative py-32 bg-surface-low">
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="text-center max-w-2xl mx-auto mb-20">
+      <p class="text-xs font-medium uppercase tracking-widest text-tertiary mb-4">Cómo funciona</p>
+      <h2 class="text-4xl md:text-5xl font-black tracking-tight text-on-surface" style="letter-spacing: -0.03em;">
+        De la búsqueda al acuerdo en 4 pasos
+      </h2>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+      {steps.map((step, index) => (
+        <div class="relative">
+          <div class="text-7xl font-black text-surface-bright mb-6" style="letter-spacing: -0.04em;">{step.number}</div>
+          <h3 class="text-xl font-bold text-on-surface mb-3">{step.title}</h3>
+          <p class="text-sm text-on-surface-variant leading-relaxed">{step.description}</p>
+          {index < steps.length - 1 && (
+            <div class="hidden lg:block absolute top-8 right-0 translate-x-1/2 w-12 h-px bg-outline-variant/30"></div>
+          )}
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

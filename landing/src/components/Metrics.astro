@@ -1,0 +1,34 @@
+---
+const metrics = [
+  { value: '< 10 min', label: 'Tiempo medio de descubrimiento', color: 'text-primary' },
+  { value: '15%', label: 'Conversión búsqueda a contacto', color: 'text-secondary' },
+  { value: '500ms', label: 'Tiempo de respuesta p95', color: 'text-tertiary' },
+  { value: '99.9%', label: 'Disponibilidad garantizada', color: 'text-on-surface' },
+];
+---
+
+<section class="relative py-32">
+  <div class="absolute inset-0 overflow-hidden pointer-events-none">
+    <div class="absolute top-0 left-1/4 w-[400px] h-[400px] rounded-full bg-secondary/5 blur-[120px]"></div>
+  </div>
+
+  <div class="relative mx-auto max-w-7xl px-6">
+    <div class="text-center max-w-2xl mx-auto mb-20">
+      <p class="text-xs font-medium uppercase tracking-widest text-secondary mb-4">Rendimiento</p>
+      <h2 class="text-4xl md:text-5xl font-black tracking-tight text-on-surface" style="letter-spacing: -0.03em;">
+        Datos que respaldan resultados
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-12">
+      {metrics.map((metric) => (
+        <div class="text-center">
+          <p class={`text-4xl md:text-5xl font-black mb-3 ${metric.color}`} style="letter-spacing: -0.03em;">
+            {metric.value}
+          </p>
+          <p class="text-xs uppercase tracking-widest text-on-surface-variant">{metric.label}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

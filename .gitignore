@@ -1,0 +1,17 @@
+node_modules
+dist
+build
+.svelte-kit
+.astro
+.env
+.env.*
+*.local
+.DS_Store
+Thumbs.db
+.cursor
+.claude
+.codex
+.agents
+agent-transcripts
+mcps
+terminals
