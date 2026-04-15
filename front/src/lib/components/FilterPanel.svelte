@@ -58,8 +58,9 @@
   </div>
 
   <div>
-    <label class="block text-xs font-medium uppercase tracking-widest text-on-surface-variant mb-2">Presupuesto mínimo</label>
+    <label for="budget-min" class="block text-xs font-medium uppercase tracking-widest text-on-surface-variant mb-2">Presupuesto mínimo</label>
     <input
+      id="budget-min"
       type="range"
       min="0"
       max="1000000"
@@ -72,8 +73,9 @@
   </div>
 
   <div>
-    <label class="block text-xs font-medium uppercase tracking-widest text-on-surface-variant mb-2">Presupuesto máximo</label>
+    <label for="budget-max" class="block text-xs font-medium uppercase tracking-widest text-on-surface-variant mb-2">Presupuesto máximo</label>
     <input
+      id="budget-max"
       type="range"
       min="0"
       max="5000000"

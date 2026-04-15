@@ -102,6 +102,7 @@
                 <button
                   onclick={() => deleteSearch(search.id)}
                   class="text-outline hover:text-error transition-colors opacity-0 group-hover:opacity-100 shrink-0"
+                  aria-label="Eliminar búsqueda guardada"
                 >
                   <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -163,7 +164,7 @@
 
 {#if showSaveModal}
   <div class="fixed inset-0 z-50 flex items-center justify-center">
-    <button class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick={() => showSaveModal = false}></button>
+    <button class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick={() => showSaveModal = false} aria-label="Cerrar modal"></button>
     <div class="relative bg-surface-container rounded-2xl p-8 w-full max-w-md mx-4 shadow-2xl">
       <h2 class="text-xl font-bold text-on-surface mb-2">Guardar búsqueda</h2>
       <p class="text-sm text-on-surface-variant mb-6">Nombra esta configuración de filtros para reutilizarla después.</p>

@@ -160,7 +160,7 @@
 
   {#if showDealModal}
     <div class="fixed inset-0 z-50 flex items-center justify-center">
-      <button class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick={() => showDealModal = false}></button>
+      <button class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick={() => showDealModal = false} aria-label="Cerrar modal"></button>
       <div class="relative bg-surface-container rounded-2xl p-8 w-full max-w-lg mx-4 shadow-2xl">
         <h2 class="text-xl font-bold text-on-surface mb-2">Proponer acuerdo</h2>
         <p class="text-sm text-on-surface-variant mb-6">Envía una propuesta de patrocinio a {club.name}</p>
