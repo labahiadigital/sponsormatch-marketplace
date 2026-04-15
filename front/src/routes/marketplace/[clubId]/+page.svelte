@@ -3,6 +3,7 @@
   import MetricTile from '$lib/components/MetricTile.svelte';
   import Toast from '$lib/components/Toast.svelte';
   import { clubs, clubMetrics, deals, clubProfiles } from '$lib/stores.svelte';
+  import { createDeal } from '$lib/store-operations';
   import { formatNumber, formatCurrency } from '$lib/utils';
   import { calculateROI, getMatchScore, getAudienceSegments } from '$lib/sponsorship';
   import { calculateContentMetrics, compareWithLocalMedia } from '$lib/content-metrics';
@@ -47,19 +48,15 @@
   let toastMessage = $state('');
   let toastVisible = $state(false);
 
-  function createDeal() {
+  function handleCreateDeal() {
     if (!dealTitle.trim() || !club) return;
-    deals.push({
-      id: deals.length + 1,
-      brandIdentity: 'demo',
+    createDeal({
       clubId: club.id,
-      status: 'pendiente',
       amount: dealAmount,
       title: dealTitle,
       description: dealDescription,
       startDate: dealStartDate,
       endDate: dealEndDate,
-      createdAt: new Date().toISOString(),
     });
     showDealModal = false;
     dealTitle = '';
@@ -432,7 +429,7 @@
           <button onclick={() => showDealModal = false} class="px-5 py-2.5 rounded-lg text-sm text-on-surface-variant hover:text-on-surface transition-colors">
             Cancelar
           </button>
-          <button onclick={createDeal} class="px-5 py-2.5 rounded-lg bg-gradient-to-r from-primary-container to-secondary-container text-white text-sm font-semibold hover:shadow-[0_0_20px_rgba(37,99,235,0.4)] transition-all">
+          <button onclick={handleCreateDeal} class="px-5 py-2.5 rounded-lg bg-gradient-to-r from-primary-container to-secondary-container text-white text-sm font-semibold hover:shadow-[0_0_20px_rgba(37,99,235,0.4)] transition-all">
             Enviar propuesta
           </button>
         </div>

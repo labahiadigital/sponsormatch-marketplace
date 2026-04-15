@@ -3,6 +3,7 @@
   import FilterPanel from '$lib/components/FilterPanel.svelte';
   import Toast from '$lib/components/Toast.svelte';
   import { clubs, clubMetrics, savedSearches } from '$lib/stores.svelte';
+  import { createSavedSearch, deleteSavedSearch } from '$lib/store-operations';
   import type { Filters } from '$lib/types';
 
   let filters: Filters = $state({
@@ -41,13 +42,7 @@
 
   function saveCurrentSearch() {
     if (!searchName.trim()) return;
-    savedSearches.push({
-      id: savedSearches.length + 1,
-      brandIdentity: 'demo',
-      name: searchName,
-      filtersJson: JSON.stringify(filters),
-      createdAt: new Date().toISOString(),
-    });
+    createSavedSearch(searchName, filters);
     showSaveModal = false;
     searchName = '';
     toastMessage = 'Búsqueda guardada correctamente';
@@ -61,8 +56,7 @@
   }
 
   function deleteSearch(id: number) {
-    const idx = savedSearches.findIndex(s => s.id === id);
-    if (idx > -1) savedSearches.splice(idx, 1);
+    deleteSavedSearch(id);
   }
 </script>
 
