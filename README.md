@@ -60,7 +60,7 @@ npm run build  # Build de producción
 
 | Capa | Tecnología |
 |------|-----------|
-| Landing | Astro 5, Tailwind CSS v4 |
+| Landing | Astro 6, Tailwind CSS v4 |
 | Frontend | SvelteKit 2, Svelte 5, Tailwind CSS v4 |
 | Backend | SpacetimeDB (TypeScript modules) |
 | Comunicación | WebSocket (SpacetimeDB SDK) |

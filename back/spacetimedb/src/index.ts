@@ -167,13 +167,8 @@ export const registerBrand = spacetimedb.reducer(
 export const saveSearch = spacetimedb.reducer(
   { name: t.string(), filtersJson: t.string() },
   (ctx, { name, filtersJson }) => {
-    let count = 0;
-    for (const s of ctx.db.savedSearch.iter()) {
-      if (s.brandIdentity.toHexString() === ctx.sender.toHexString()) {
-        count++;
-      }
-    }
-    if (count >= 10) {
+    const existing = [...ctx.db.savedSearch.byBrandIdentity.filter(ctx.sender)];
+    if (existing.length >= 10) {
       throw new Error('Máximo 10 búsquedas guardadas permitidas');
     }
     ctx.db.savedSearch.insert({

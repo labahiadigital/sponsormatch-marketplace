@@ -9,9 +9,7 @@
     { href: '/messages', label: 'Mensajes', icon: 'messages' },
   ];
 
-  function isActive(href: string): boolean {
-    return page.url.pathname.startsWith(href);
-  }
+  const currentPath = $derived(page.url.pathname);
 </script>
 
 <aside
@@ -34,7 +32,7 @@
     {#each navItems as item}
       <a
         href={item.href}
-        class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 {isActive(item.href) ? 'bg-primary-container/15 text-primary' : 'text-on-surface-variant hover:text-on-surface hover:bg-surface-container'}"
+        class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 {currentPath.startsWith(item.href) ? 'bg-primary-container/15 text-primary' : 'text-on-surface-variant hover:text-on-surface hover:bg-surface-container'}"
       >
         <div class="w-5 h-5 shrink-0 flex items-center justify-center">
           {#if item.icon === 'dashboard'}
